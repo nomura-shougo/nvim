@@ -43,3 +43,6 @@ eval "$(zoxide init bash)"
 ```bash
 winget install BurntSushi.ripgrep.MSVC
 ```
+
+8. ショートカットをタスクバーにピン止めする
+shortcut フォルダの Neovimショートカットをタスクバーにピン止めする

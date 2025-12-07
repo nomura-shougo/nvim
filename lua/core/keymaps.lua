@@ -131,3 +131,42 @@ map('n', '-', '<C-x>', { noremap = true })
 --
 -- map("n","L",function() MoveForward() end)
 -- map("n","H",function() MoveBackward() end)
+
+-- =============================
+--  パスジャンプ機能
+-- =============================
+
+-- Windows形式パスを入力してジャンプ（ファイル/フォルダ自動判定）
+map("n", "<Leader>gp", function()
+  local path = vim.fn.input("Path: ", "", "file")
+  if path == "" then return end
+
+  -- Windowsパスの \ を / に変換
+  path = path:gsub("\\", "/")
+  path = vim.fn.trim(path)
+
+  if vim.fn.filereadable(path) == 1 then
+    -- ファイルの場合: 編集
+    vim.cmd("edit " .. vim.fn.fnameescape(path))
+  elseif vim.fn.isdirectory(path) == 1 then
+    -- フォルダの場合: Oilで開く
+    require("oil").open(path)
+  else
+    print("Path not found: " .. path)
+  end
+end, { desc = "Jump to path (file or directory)" })
+
+-- クリップボードのパスを開く
+map("n", "<Leader>gv", function()
+  local path = vim.fn.getreg("+")
+  path = path:gsub("\\", "/")
+  path = vim.fn.trim(path)
+
+  if vim.fn.filereadable(path) == 1 then
+    vim.cmd("edit " .. vim.fn.fnameescape(path))
+  elseif vim.fn.isdirectory(path) == 1 then
+    require("oil").open(path)
+  else
+    print("Path not found: " .. path)
+  end
+end, { desc = "Open path from clipboard" })

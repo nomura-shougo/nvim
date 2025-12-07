@@ -57,6 +57,25 @@ return {
           vim.fn.system(string.format('explorer /select,"%s"', fullpath))
         end,
       },
+      ["yp"] = {
+        desc = "Windows形式でパスをコピー",
+        callback = function()
+          local oil = require("oil")
+          local entry = oil.get_cursor_entry()
+
+          if not entry then return end
+
+          local dir = oil.get_current_dir()
+          local fullpath = dir .. entry.name
+
+          -- Windows形式に変換（/ を \ に置換）
+          local windows_path = fullpath:gsub("/", "\\")
+
+          -- クリップボードにコピー
+          vim.fn.setreg("+", windows_path)
+          print("Copied: " .. windows_path)
+        end,
+      },
     },
   },
     config = function(_, opts)

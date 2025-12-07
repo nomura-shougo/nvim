@@ -57,9 +57,9 @@ map("n","<Leader>h",":noh<CR>")
 -- map("n","<Leader><Leader>f",":Rg<CR>")
 
 -- <C-j> で次のバッファ (bnext)
-map('n', '<Tab>', ':bnext<CR>', { noremap = true, silent = true })
+map('n', '<C-j>', ':bnext<CR>', { noremap = true, silent = true })
 -- <C-k> で前のバッファ (bprev)
-map('n', '<S-Tab>', ':bprev<CR>', { noremap = true, silent = true })
+map('n', '<C-k>', ':bprev<CR>', { noremap = true, silent = true })
 
 -- 2. コピー (Ctrl + c)
 -- Visualモード（選択時）のみ有効にするのがWindows流です

@@ -9,6 +9,41 @@ return {
     show_hidden = true,
     
     keymaps = {
+      -- マウス操作: ダブルクリックでファイル/フォルダを開く
+      ["<2-LeftMouse>"] = {
+        desc = "ダブルクリックでファイル/フォルダを開く",
+        callback = function()
+          local oil = require("oil")
+          local entry = oil.get_cursor_entry()
+
+          if not entry then return end
+
+          -- フォルダの場合は<CR>の動作（フォルダに入る）
+          if entry.type == "directory" then
+            require("oil.actions").select.callback()
+          -- ファイルの場合も<CR>の動作（ファイルを開く）
+          elseif entry.type == "file" then
+            require("oil.actions").select.callback()
+          end
+        end,
+      },
+      -- マウス操作: 右クリックでOilを閉じる
+      ["<RightMouse>"] = {
+        desc = "右クリックでOilを閉じる",
+        callback = function()
+          -- 遅延実行でより確実に閉じる
+          vim.schedule(function()
+            require("oil").close()
+          end)
+        end,
+      },
+      -- マウス操作: 戻るボタンで一つ上のフォルダに移動
+      ["<X1Mouse>"] = {
+        desc = "マウス戻るボタンで上のフォルダへ",
+        callback = function()
+          require("oil.actions").parent.callback()
+        end,
+      },
       ["t"] = {
         desc = "バッファに即時追加（裏で開く）",
         callback = function()

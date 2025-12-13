@@ -8,7 +8,22 @@ map("n","<Leader>D","\"_D")
 map("n","<Leader>;","mzA;<ESC>`z")
 map("n","<Leader>j","jI")
 map("n","<Leader>k","kI")
-map("n","<Leader>w","w")
+
+-- <Leader>w で新しいWindows Terminalを開き、カレントファイルでNeovimを起動
+map("n", "<Leader>w", function()
+  local current_file = vim.fn.expand("%:p")
+  local current_dir = vim.fn.expand("%:p:h")
+
+  if current_file == "" or vim.bo.filetype == "oil" then
+    -- ファイルがない場合やOilの場合は、カレントディレクトリで開く
+    current_dir = vim.fn.getcwd()
+    vim.fn.system(string.format('start wt.exe -d "%s" nvim', current_dir))
+  else
+    -- ファイルがある場合は、そのファイルをNeovimで開く
+    local cmd = string.format('start wt.exe -d "%s" nvim "%s"', current_dir, current_file)
+    vim.fn.system(cmd)
+  end
+end, { desc = "Open current file in new Windows Terminal with Neovim" })
 
 map({"n", "v"}, "y", '"+y')
 map("n", "yy", '"+yy')
@@ -33,10 +48,13 @@ map("n","<Leader>q",":qa<CR>")
 map("n","<C-q>",":q<CR>")
 
 map("n","<C-y>","\"+yaw")
+vim.opt.mouse = 'a'
 
 map("n","<C-d>","<C-v>")
 map("n","<C-u>","U")
 map("n","U","<C-r>")
+map("n","<C-f>","/")
+map("n","<C-z>","u")
 
 map("n","n","nzz")
 map("n","N","Nzz")
@@ -91,12 +109,63 @@ map({"n", "x"}, "L", "<C-d>zz", { desc = "半ページ下へ移動" })
 map("n", "<C-q>", "<cmd>bd<CR>", { desc = "Close Buffer" })
 map("n", "<C-b>", function()
   local oil = require("oil")
-  if vim.bo.filetype == "oil" then
+
+  -- より確実にOilウィンドウが開いているかチェック
+  local is_oil_open = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    if buf_name:match("^oil://") then
+      is_oil_open = true
+      break
+    end
+  end
+
+  if is_oil_open then
     oil.close()
   else
-    oil.open()
+    vim.schedule(function()
+      oil.open()
+    end)
   end
 end, { desc = "Toggle Oil" })
+
+-- 右クリックでOilをトグル
+map("n", "<RightMouse>", function()
+  local oil = require("oil")
+
+  -- より確実にOilウィンドウが開いているかチェック
+  local is_oil_open = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    if buf_name:match("^oil://") then
+      is_oil_open = true
+      break
+    end
+  end
+
+  if is_oil_open then
+    oil.close()
+  else
+    -- 遅延実行で確実に開く
+    vim.schedule(function()
+      oil.open()
+    end)
+  end
+end, { desc = "Toggle Oil (Right Click)" })
+
+-- マウスの戻るボタンでOilをトグル（通常ファイル上では開く）
+map("n", "<X1Mouse>", function()
+  local oil = require("oil")
+  if vim.bo.filetype == "oil" then
+    -- Oil内では一つ上のフォルダへ（Oil側のkeymapで処理）
+    return
+  else
+    -- 通常ファイル上ではOilを開く
+    oil.open()
+  end
+end, { desc = "Open Oil (Mouse Back)" })
 
 -- ノーマルモード: そのまま保存
 map("n", "<C-s>", "<cmd>w<CR>", { desc = "Save file" })

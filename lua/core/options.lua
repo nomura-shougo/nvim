@@ -18,6 +18,8 @@ vim.opt.shiftwidth = 2
 -- tabstop で設定した数の分の半角スペースが入力されます。
 vim.opt.expandtab = true
 
+vim.opt.mouse = 'a'
+
 -- true color 有効化
 vim.opt.termguicolors = true
 vim.opt.number = true

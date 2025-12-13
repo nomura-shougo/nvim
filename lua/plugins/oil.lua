@@ -111,6 +111,40 @@ return {
           print("Copied: " .. windows_path)
         end,
       },
+      ["m"] = {
+        desc = "harpoonにディレクトリを登録",
+        callback = function()
+          local oil = require("oil")
+          local entry = oil.get_cursor_entry()
+          local dir = oil.get_current_dir()
+          local target_dir
+
+          if not entry then
+            -- エントリがない場合は現在のディレクトリを登録
+            target_dir = dir
+          elseif entry.type == "directory" then
+            -- カーソル直下がフォルダの場合、そのフォルダを登録
+            target_dir = dir .. entry.name
+          elseif entry.type == "file" then
+            -- カーソル直下がファイルの場合、親ディレクトリを登録
+            target_dir = dir
+          else
+            target_dir = dir
+          end
+
+          -- 末尾のスラッシュを削除（統一のため）
+          target_dir = target_dir:gsub("/$", "")
+
+          -- harpoonに登録
+          local harpoon = require("harpoon")
+          harpoon:list():add({
+            value = target_dir,
+            context = { row = 1, col = 0 }
+          })
+
+          print("Added to harpoon: " .. target_dir)
+        end,
+      },
     },
   },
     config = function(_, opts)

@@ -50,7 +50,8 @@ map("n","<C-q>",":q<CR>")
 map("n","<C-y>","\"+yaw")
 vim.opt.mouse = 'a'
 
-map("n","<C-d>","<C-v>")
+-- <C-d>はharpoonのトグルに使用（harpoon.luaで設定）
+-- map("n","<C-d>","<C-v>")
 map("n","<C-u>","U")
 map("n","U","<C-r>")
 map("n","<C-f>","/")

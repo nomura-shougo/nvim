@@ -20,6 +20,15 @@ vim.opt.expandtab = true
 
 vim.opt.mouse = 'a'
 
+-- Neovide の設定
+-- if vim.g.neovide then
+--   -- フォント設定（Neovide では必須）
+--   vim.o.guifont = "Consolas:h11" -- Windows標準フォント、サイズ11
+--   -- アニメーション速度（お好みで調整）
+--   -- vim.g.neovide_cursor_animation_length = 0.05
+--   -- vim.g.neovide_scroll_animation_length = 0.1
+-- end
+
 -- true color 有効化
 vim.opt.termguicolors = true
 vim.opt.number = true

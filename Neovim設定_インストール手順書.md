@@ -8,6 +8,11 @@
 https://neovim.io/doc2/install/
 「Windows」を選択するとmsi ファイルがダウンロードされる 実行してインストールする
 
+1. nvim-qt のインストールと利用
+GUI版ツールである、nvim-qtを利用する
+下記のコマンドを実行する
+winget install equalsraf.neovim-qt
+
 1. Nerd Font（ナードフォント）をインストールする
 https://github.com/yuru7/HackGen/releases
 zip ファイルを展開して ttf ファイルをインストールする
@@ -28,7 +33,7 @@ mkdir ~/AppData/Local/nvim
 git clone https://github.com/nomura-shougo/nvim.git ~/AppData/Local/nvim
 ```
 
-6. zoxide をインストールして、bashrc に設定を追加する
+7. zoxide をインストールして、bashrc に設定を追加する
 ```bash
 winget install ajeetdsouza.zoxide
 ```
@@ -38,11 +43,11 @@ winget install ajeetdsouza.zoxide
 eval "$(zoxide init bash)"
 ```
 
-7. ripgrep をインストールする
+8. ripgrep をインストールする
 ターミナルから以下のコマンドを実行する
 ```bash
 winget install BurntSushi.ripgrep.MSVC
 ```
 
-8. ショートカットをタスクバーにピン止めする
+9. ショートカットをタスクバーにピン止めする
 shortcut フォルダの Neovimショートカットをタスクバーにピン止めする

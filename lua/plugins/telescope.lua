@@ -98,7 +98,7 @@ return {
         local telescope_open = false
         for _, win in ipairs(vim.api.nvim_list_wins()) do
           local buf = vim.api.nvim_win_get_buf(win)
-          local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+          local ft = vim.bo[buf].filetype
           if ft == 'TelescopePrompt' then
             telescope_open = true
             -- Telescopeを閉じて、元のバッファに戻る
@@ -116,7 +116,7 @@ return {
         if not telescope_open then
           -- 現在のバッファを保存（Oilや通常ファイルの場合のみ）
           local current_buf = vim.api.nvim_get_current_buf()
-          local current_ft = vim.api.nvim_buf_get_option(current_buf, 'filetype')
+          local current_ft = vim.bo[current_buf].filetype
           if current_ft ~= 'TelescopePrompt' then
             vim.g.zoxide_previous_buf = current_buf
           end
@@ -142,7 +142,7 @@ return {
         local telescope_open = false
         for _, win in ipairs(vim.api.nvim_list_wins()) do
           local buf = vim.api.nvim_win_get_buf(win)
-          local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+          local ft = vim.bo[buf].filetype
           if ft == 'TelescopePrompt' then
             telescope_open = true
             vim.api.nvim_win_close(win, true)
@@ -159,7 +159,7 @@ return {
         if not telescope_open then
           -- 現在のバッファを保存
           local current_buf = vim.api.nvim_get_current_buf()
-          local current_ft = vim.api.nvim_buf_get_option(current_buf, 'filetype')
+          local current_ft = vim.bo[current_buf].filetype
           if current_ft ~= 'TelescopePrompt' then
             vim.g.zoxide_previous_buf = current_buf
           end
@@ -184,7 +184,7 @@ return {
         local telescope_open = false
         for _, win in ipairs(vim.api.nvim_list_wins()) do
           local buf = vim.api.nvim_win_get_buf(win)
-          local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+          local ft = vim.bo[buf].filetype
           if ft == 'TelescopePrompt' then
             telescope_open = true
             vim.api.nvim_win_close(win, true)
@@ -201,7 +201,7 @@ return {
         if not telescope_open then
           -- 現在のバッファを保存
           local current_buf = vim.api.nvim_get_current_buf()
-          local current_ft = vim.api.nvim_buf_get_option(current_buf, 'filetype')
+          local current_ft = vim.bo[current_buf].filetype
           if current_ft ~= 'TelescopePrompt' then
             vim.g.zoxide_previous_buf = current_buf
           end
@@ -231,7 +231,7 @@ return {
         local telescope_open = false
         for _, win in ipairs(vim.api.nvim_list_wins()) do
           local buf = vim.api.nvim_win_get_buf(win)
-          local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+          local ft = vim.bo[buf].filetype
           if ft == 'TelescopePrompt' then
             telescope_open = true
             vim.api.nvim_win_close(win, true)
@@ -269,7 +269,7 @@ return {
         local telescope_open = false
         for _, win in ipairs(vim.api.nvim_list_wins()) do
           local buf = vim.api.nvim_win_get_buf(win)
-          local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+          local ft = vim.bo[buf].filetype
           if ft == 'TelescopePrompt' then
             telescope_open = true
             vim.api.nvim_win_close(win, true)

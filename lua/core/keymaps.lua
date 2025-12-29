@@ -88,7 +88,8 @@ map("v", "<C-c>", '"+y<Esc>', opts)
 map("v", "<C-x>", '"+d', opts)
 -- 3. ペースト (Ctrl + v)
 -- Insertモード（入力中）: クリップボード(+)の内容を貼り付け
-map("i", "<C-v>", "<C-r>+", opts)
+-- map("i", "<C-v>", "<C-r>+", opts)
+map('i', '<C-v>', '<C-r><C-p>+', opts)
 -- Normalモード: そのまま貼り付け
 --map("n", "<C-v>", '"+P', opts)
 -- Visualモード: 選択範囲を上書きして貼り付け
@@ -108,28 +109,6 @@ map({"n", "x"}, "H", "<C-u>zz", { desc = "半ページ上へ移動" })
 map({"n", "x"}, "L", "<C-d>zz", { desc = "半ページ下へ移動" })
 
 map("n", "<C-q>", "<cmd>bd<CR>", { desc = "Close Buffer" })
-map("n", "<C-b>", function()
-  local oil = require("oil")
-
-  -- より確実にOilウィンドウが開いているかチェック
-  local is_oil_open = false
-  for _, win in ipairs(vim.api.nvim_list_wins()) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    local buf_name = vim.api.nvim_buf_get_name(buf)
-    if buf_name:match("^oil://") then
-      is_oil_open = true
-      break
-    end
-  end
-
-  if is_oil_open then
-    oil.close()
-  else
-    vim.schedule(function()
-      oil.open()
-    end)
-  end
-end, { desc = "Toggle Oil" })
 
 -- 右クリックでOilをトグル
 map("n", "<RightMouse>", function()

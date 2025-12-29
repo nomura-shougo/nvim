@@ -67,6 +67,7 @@ return {
       extensions = {
         zoxide = {
           prompt_title = "[ Zoxide List ]",
+          shell = vim.fn.has("win32") == 1 and "cmd.exe" or nil,
           mappings = {
             default = {
               -- Enterなどを押した時の動作をカスタマイズできます

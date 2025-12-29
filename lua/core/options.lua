@@ -1,3 +1,4 @@
+vim.opt.shell = "C:\\Program Files\\Git\\bin\\bash.exe"
 vim.opt.encoding = "utf-8"
 vim.opt.runtimepath:append("~/.vim")
 vim.opt.clipboard = ""

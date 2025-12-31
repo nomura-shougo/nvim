@@ -31,6 +31,7 @@ return {
         },
         follow_current_file = {
           enabled = true,
+          leave_dirs_open = false,  -- ディレクトリを閉じて新しい場所に移動
         },
       },
     })

@@ -73,8 +73,11 @@ return {
           local dir = oil.get_current_dir()
           local fullpath = dir .. entry.name
 
-          -- Windows の start コマンドで開く
-          vim.fn.system(string.format('start "" "%s"', fullpath))
+          -- Windows形式に変換
+          local windows_path = fullpath:gsub("/", "\\")
+
+          -- Neovide対応: cmd.exe経由で実行
+          vim.fn.jobstart({'cmd.exe', '/c', 'start', '', windows_path}, {detach = true})
         end,
       },
       ["ge"] = {
@@ -88,8 +91,11 @@ return {
           local dir = oil.get_current_dir()
           local fullpath = dir .. entry.name
 
-          -- ファイルでもフォルダでもエクスプローラーで選択状態にする
-          vim.fn.system(string.format('explorer /select,"%s"', fullpath))
+          -- Windows形式に変換
+          local windows_path = fullpath:gsub("/", "\\")
+
+          -- Neovide対応: cmd.exe経由で実行
+          vim.fn.jobstart({'cmd.exe', '/c', 'explorer', '/select,' .. windows_path}, {detach = true})
         end,
       },
       ["yp"] = {

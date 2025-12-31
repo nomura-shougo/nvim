@@ -17,10 +17,16 @@ return {
             key = 'o',
           },
           {
-            desc = ' Zoxide',
+            desc = ' Frecency',
             group = 'Number',
-            action = 'Telescope zoxide list',
-            key = 'z',
+            action = 'Telescope frecency',
+            key = 'f',
+          },
+          {
+            desc = ' Recent Files',
+            group = 'String',
+            action = 'Telescope oldfiles',
+            key = 'r',
           },
         },
         project = {

@@ -1,4 +1,4 @@
-vim.opt.shell = "C:\\Program Files\\Git\\bin\\bash.exe"
+vim.opt.shell = '"C:/Program Files/Git/bin/bash.exe"'
 vim.opt.encoding = "utf-8"
 vim.opt.runtimepath:append("~/.vim")
 vim.opt.clipboard = ""
@@ -20,6 +20,13 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 vim.opt.mouse = 'a'
+
+-- ファイル履歴の保存設定（oldfiles用）
+vim.opt.shada = "'100,<50,s10,h"
+-- '100 = 最近開いた100個のファイルを記録
+-- <50  = 各レジスタに最大50行を保存
+-- s10  = 10KBを超えるアイテムはスキップ
+-- h    = 起動時にhlsearchを無効化
 
 -- Neovide の設定
 -- if vim.g.neovide then
@@ -64,3 +71,24 @@ vim.cmd("highlight StatusLine guifg=#7f8c8d guibg=#ffffff gui=bold")
 vim.cmd("highlight StatusLineNC guifg=#bdc3c7 guibg=#ffffff")
 vim.cmd("highlight StatusLineSeparator guifg=#2c3e50 guibg=#ffffff")
 -- vim.cmd([[ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%' ]])
+-- 境界線の色を「蛍光色」などにして、マウスの的（マト）として認識しやすくする
+vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#00ff00", bold = true }) -- 緑色で強調
+
+-- =============================
+-- 不可視文字の可視化
+-- =============================
+vim.opt.list = true  -- 不可視文字を表示
+vim.opt.listchars = {
+  space = '⋅',       -- 半角スペース
+  tab = '>-',        -- タブ文字（2文字で表示）
+  eol = '↲',         -- 改行
+  trail = '-',       -- 行末のスペース
+  extends = '»',     -- 画面右端で折り返す文字
+  precedes = '«',    -- 画面左端で折り返す文字
+  nbsp = '␣',        -- ノーブレークスペース
+}
+
+-- 不可視文字の色をうっすら表示（白テーマ用：白に近い薄いグレー）
+vim.api.nvim_set_hl(0, "Whitespace", { fg = "#e0e0e0" })      -- スペースなど
+vim.api.nvim_set_hl(0, "NonText", { fg = "#e0e0e0" })         -- 改行など
+vim.api.nvim_set_hl(0, "SpecialKey", { fg = "#e0e0e0" })      -- タブなど

@@ -36,16 +36,40 @@ map("n","<Leader>bp","\"bp")
 map("n","<Leader>cy","\"cy")
 map("n","<Leader>cp","\"cp")
 
-map("n","<C-o>","mzo<ESC>`z")
-map("n","<C-i>","mzO<ESC>`z")
+-- map("n","<C-o>","mzo<ESC>`z")  -- Telescope oldfilesに変更
+-- map("n","<C-i>","mzO<ESC>`z")  -- Oil.nvimトグルに変更
 map("n","<Leader><CR>","mza<CR><ESC>`z")
+
+-- <C-i>でOil.nvimをトグル
+map("n", "<C-i>", function()
+  local oil = require("oil")
+
+  -- より確実にOilウィンドウが開いているかチェック
+  local is_oil_open = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    if buf_name:match("^oil://") then
+      is_oil_open = true
+      break
+    end
+  end
+
+  if is_oil_open then
+    oil.close()
+  else
+    -- 遅延実行で確実に開く
+    vim.schedule(function()
+      oil.open()
+    end)
+  end
+end, { desc = "Toggle Oil with Ctrl+i" })
 
 map("n","<Leader>m",":MarkdownPreview<CR>")
 map("n","<Leader><Leader>m",":MarkdownPreviewStop<CR>")
 
 map("n","<Leader>c","q:")
 map("n","<Leader>q",":qa<CR>")
-map("n","<C-q>",":q<CR>")
 
 map("n","<C-y>","\"+yaw")
 vim.opt.mouse = 'a'
@@ -91,11 +115,12 @@ map("v", "<C-x>", '"+d', opts)
 -- map("i", "<C-v>", "<C-r>+", opts)
 map('i', '<C-v>', '<C-r><C-p>+', opts)
 -- Normalモード: そのまま貼り付け
---map("n", "<C-v>", '"+P', opts)
+map("n", "<C-v>", '"+P', opts)
 -- Visualモード: 選択範囲を上書きして貼り付け
 map("v", "<C-v>", '"_d"+P', opts)
 -- Commandモード（検索窓など）: クリップボードの内容を貼り付け
-map("c", "<C-v>", "<C-r>+", opts)
+-- Neovide対応: silentを外して描画を有効化
+map("c", "<C-v>", "<C-r>+", { noremap = true })
 -- ノーマルモードで Ctrl-a を全選択 (ggVG) にマッピング
 map('n', '<C-a>', 'ggVG', { noremap = true, silent = true })
 -- インサートモードでも Ctrl-a で全選択したい場合（一旦ノーマルに戻って全選択）
@@ -108,7 +133,20 @@ map({"n", "x"}, "K", "5kzz", { desc = "5行上に移動" })
 map({"n", "x"}, "H", "<C-u>zz", { desc = "半ページ上へ移動" })
 map({"n", "x"}, "L", "<C-d>zz", { desc = "半ページ下へ移動" })
 
-map("n", "<C-q>", "<cmd>bd<CR>", { desc = "Close Buffer" })
+map("n", "<C-q>", function()
+  local bufremove = require("mini.bufremove")
+  if vim.bo.buftype == "terminal" then
+    -- ターミナルは強制削除
+    bufremove.delete(0, true)
+  else
+    -- 通常バッファは mini.bufremove で削除
+    bufremove.delete(0, false)
+  end
+end, { desc = "Close Buffer" })
+
+-- ウィンドウ間の移動
+map('n', '<C-h>', '<C-w>h', { desc = 'Move focus to the left window' })
+map('n', '<C-l>', '<C-w>l', { desc = 'Move focus to the right window' })
 
 -- 右クリックでOilをトグル
 map("n", "<RightMouse>", function()
@@ -155,6 +193,21 @@ map("i", "<C-s>", "<Esc><cmd>w<CR>", { desc = "Save file" })
 map('n', '+', '<C-a>', { noremap = true })
 -- - キーでデクリメント
 map('n', '-', '<C-x>', { noremap = true })
+
+-- ターミナルバッファを新規作成（複数作成可能）
+map('n', '<C-t>', function()
+  -- 新しいターミナルバッファを作成
+  vim.cmd('terminal')
+  -- ターミナルモードに入る
+  vim.cmd('startinsert')
+end, { desc = "Create new terminal buffer" })
+
+-- ターミナルモードから通常モードへ
+map('t', '<Esc>', '<C-\\><C-n>', { desc = "Exit terminal mode" })
+
+-- ターミナルモードでもウィンドウ移動可能に
+map('t', '<C-h>', '<C-\\><C-n><C-w>h', { desc = "Move to left window from terminal" })
+map('t', '<C-l>', '<C-\\><C-n><C-w>l', { desc = "Move to right window from terminal" })
 
 
 

@@ -1,50 +1,52 @@
-return {
-  'echasnovski/mini.tabline',
-  version = false, -- mini.nvim モジュールは最新版（mainブランチ）の使用が推奨されます
-  dependencies = { 'nvim-tree/nvim-web-devicons' }, -- アイコン表示用
-  config = function()
-    require('mini.tabline').setup({
-      -- タブの表示形式の設定（必要に応じて変更してください）
-      show_icons = true,        -- アイコンを表示
-      set_vim_settings = true,  -- タブバーを常に表示する設定(showtabline=2)などを自動適用
-      
-      -- 必要であれば、ここで表示フォーマットを細かく定義できます
-      -- format = function(buf_id, label) ... end
-    })
-    -- 【ライトテーマ対策】
-    local set_hl = vim.api.nvim_set_hl
-    -- アクティブなタブ（白背景に黒文字）
-    set_hl(0, "MiniTablineCurrent", { bg = "#ffffff", fg = "#000000" })
-    -- その他のタブ（グレー背景）
-    set_hl(0, "MiniTablineVisible", { bg = "#e0e0e0", fg = "#444444" })
-    -- 隠れているタブ
-    set_hl(0, "MiniTablineHidden", { bg = "#d0d0d0", fg = "#777777" })
-    -- 余白部分
-    set_hl(0, "MiniTablineFill", { bg = "#cccccc" })
+-- return {
+--   'echasnovski/mini.tabline',
+--   version = false, -- mini.nvim モジュールは最新版（mainブランチ）の使用が推奨されます
+--   dependencies = { 'nvim-tree/nvim-web-devicons' }, -- アイコン表示用
+--   config = function()
+--     require('mini.tabline').setup({
+--       -- タブの表示形式の設定（必要に応じて変更してください）
+--       show_icons = true,        -- アイコンを表示
+--       set_vim_settings = true,  -- タブバーを常に表示する設定(showtabline=2)などを自動適用
+--
+--       -- 必要であれば、ここで表示フォーマットを細かく定義できます
+--       -- format = function(buf_id, label) ... end
+--     })
+--     -- 【ライトテーマ対策】
+--     local set_hl = vim.api.nvim_set_hl
+--     -- アクティブなタブ（白背景に黒文字）
+--     set_hl(0, "MiniTablineCurrent", { bg = "#ffffff", fg = "#000000" })
+--     -- その他のタブ（グレー背景）
+--     set_hl(0, "MiniTablineVisible", { bg = "#e0e0e0", fg = "#444444" })
+--     -- 隠れているタブ
+--     set_hl(0, "MiniTablineHidden", { bg = "#d0d0d0", fg = "#777777" })
+--     -- 余白部分
+--     set_hl(0, "MiniTablineFill", { bg = "#cccccc" })
+--
+--     -- ▼▼▼ ここから好きな色を選んでください ▼▼▼
+--
+--     -- 【パターンA：オレンジ系】（おすすめ）
+--     -- 「変更」を意味するGitのような色。赤ほどきつくなく、自然に目が止まります。
+--     -- local mod_fg = "#d75f00" -- 濃いオレンジ
+--
+--     -- 【パターンB：ブルー系】
+--     -- 「知的な強調」。エディタ全体を青・水色系でまとめたい場合にとても綺麗です。
+--     local mod_fg = "#005fce" -- 濃いブルー
+--
+--     -- 【パターンC：パープル系】
+--     -- おしゃれでモダンな印象。黒文字とは明確に違うので視認性も良いです。
+--     -- local mod_fg = "#8700af" -- 濃い紫
+--
+--     -- ▲▲▲ 選んだ色が mod_fg に入ります ▲▲▲
+--
+--
+--     -- 設定の適用（ここは触らなくてOKです）
+--     -- 1. アクティブ（白背景 + 選んだ文字色）
+--     set_hl(0, "MiniTablineModifiedCurrent", { fg = mod_fg, bg = "#ffffff", bold = true })
+--
+--     -- 2. 非アクティブ（グレー背景 + 選んだ文字色を少し暗くしたもの）
+--     set_hl(0, "MiniTablineModifiedVisible", { fg = mod_fg, bg = "#e0e0e0", bold = true })
+--     set_hl(0, "MiniTablineModifiedHidden",  { fg = mod_fg, bg = "#d0d0d0" })
+--   end
+-- }
 
-    -- ▼▼▼ ここから好きな色を選んでください ▼▼▼
-
-    -- 【パターンA：オレンジ系】（おすすめ）
-    -- 「変更」を意味するGitのような色。赤ほどきつくなく、自然に目が止まります。
-    -- local mod_fg = "#d75f00" -- 濃いオレンジ
-
-    -- 【パターンB：ブルー系】
-    -- 「知的な強調」。エディタ全体を青・水色系でまとめたい場合にとても綺麗です。
-    local mod_fg = "#005fce" -- 濃いブルー
-
-    -- 【パターンC：パープル系】
-    -- おしゃれでモダンな印象。黒文字とは明確に違うので視認性も良いです。
-    -- local mod_fg = "#8700af" -- 濃い紫
-
-    -- ▲▲▲ 選んだ色が mod_fg に入ります ▲▲▲
-
-
-    -- 設定の適用（ここは触らなくてOKです）
-    -- 1. アクティブ（白背景 + 選んだ文字色）
-    set_hl(0, "MiniTablineModifiedCurrent", { fg = mod_fg, bg = "#ffffff", bold = true })
-
-    -- 2. 非アクティブ（グレー背景 + 選んだ文字色を少し暗くしたもの）
-    set_hl(0, "MiniTablineModifiedVisible", { fg = mod_fg, bg = "#e0e0e0", bold = true })
-    set_hl(0, "MiniTablineModifiedHidden",  { fg = mod_fg, bg = "#d0d0d0" })
-  end
-}
+return {}

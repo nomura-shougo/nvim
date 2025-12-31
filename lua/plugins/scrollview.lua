@@ -1,14 +1,16 @@
-return {
-  "dstein64/nvim-scrollview",
-  event = "VeryLazy",
-  opts = {
-    excluded_filetypes = { "neo-tree", "dashboard", "toggleterm" },
-    current_only = true,
-    winblend = 50,
-    -- column_count = 2, -- スクロールバーの幅（デフォルト: 1）
-    character_width = 2,
-    winblend = 75, -- 透明度を高めにする
-    -- エラー、警告、検索結果などの表示をすべて無効化する
-    signs_on_startup = {},
-  },
-}
+-- return {
+--   "dstein64/nvim-scrollview",
+--   event = "VeryLazy",
+--   opts = {
+--     excluded_filetypes = { "neo-tree", "dashboard", "toggleterm" },
+--     current_only = true,
+--     -- winblend = 50,
+--     -- -- column_count = 2, -- スクロールバーの幅（デフォルト: 1）
+--     -- character_width = 2,
+--     -- winblend = 75, -- 透明度を高めにする
+--     -- エラー、警告、検索結果などの表示をすべて無効化する
+--     signs_on_startup = {'all'},
+--   },
+-- }
+--
+return{}

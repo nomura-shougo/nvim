@@ -3,7 +3,7 @@ local M = {}
 -- 内部ロジック: メモを作成して開く
 local function open_timestamp_memo()
   local memo_root = vim.fn.expand("~/memo")
-  local extension = "" 
+  local extension = ".md" 
   local date_dir = os.date("%Y%m%d")
   local time_file = os.date("%H%M%S") .. extension
   
@@ -16,6 +16,8 @@ local function open_timestamp_memo()
 
   vim.cmd.edit(full_file_path)
   vim.notify("New memo: " .. full_file_path, vim.log.levels.INFO)
+  -- インサートモードに入る
+  vim.cmd("startinsert")
 end
 
 -- 公開するセットアップ関数

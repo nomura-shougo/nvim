@@ -1,0 +1,29 @@
+return{}
+-- return {
+--   "petertriho/nvim-scrollbar",
+--   event = "VeryLazy",
+--   config = function()
+--     require("scrollbar").setup({
+--       show = true,
+--       show_in_active_only = false,
+--       handle = {
+--         blend = 30, -- 透明度（0=不透明、100=透明）
+--         hide_if_all_visible = false, -- 全体が見えていても表示
+--       },
+--       excluded_filetypes = {
+--         "neo-tree",
+--         "dashboard",
+--         "toggleterm",
+--         "prompt",
+--         "TelescopePrompt",
+--       },
+--       handlers = {
+--         cursor = true,
+--         diagnostic = true,
+--         gitsigns = false, -- Git関連を無効化
+--         handle = true,
+--         search = true,
+--       },
+--     })
+--   end,
+-- }

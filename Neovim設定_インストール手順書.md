@@ -1,6 +1,6 @@
 # Neovim設定 インストール手順書
 2025/12/7  snomu
-2025/12/29 snomu
+2026/01/01 snomu
 
 ## 環境
 Windows11
@@ -31,26 +31,24 @@ https://neovim.io/doc2/install/
 1. Neovide をインストールする
 https://github.com/neovide/neovide/releases
 .msi ファイルをダウンロードしてインストール
+    <!--
+    ここにコメントを書く 
+    a. nvim-qt のインストールと利用
+    GUI版ツールである、nvim-qtを利用する
+    下記のコマンドを実行する
+    winget install equalsraf.neovim-qt
 
-<!--
-ここにコメントを書く 
-1. nvim-qt のインストールと利用
-GUI版ツールである、nvim-qtを利用する
-下記のコマンドを実行する
-winget install equalsraf.neovim-qt
+    1. Nerd Font（ナードフォント）をインストールする
+    https://github.com/yuru7/HackGen/releases
+    HackGen_NF zip ファイルを展開して ttf ファイルをインストールする
 
-1. Nerd Font（ナードフォント）をインストールする
-https://github.com/yuru7/HackGen/releases
-HackGen_NF zip ファイルを展開して ttf ファイルをインストールする
-
-1. Windows Terminalのフォント設定をする
-Windows Terminal を開く
-Windows Terminal ▽設定 > プロファイル (Git Bashなど) > 外観 > フォントフェイス
-HackGen Console NF
-に設定する
-※oil.nvim や mini.tabline の動作のために必要
--->
-
+    1. Windows Terminalのフォント設定をする
+    Windows Terminal を開く
+    Windows Terminal ▽設定 > プロファイル (Git Bashなど) > 外観 > フォントフェイス
+    HackGen Console NF
+    に設定する
+    ※oil.nvim や mini.tabline の動作のために必要
+    -->
 1. zoxide をインストールして、bashrc に設定を追加する
     ```bash
     winget install ajeetdsouza.zoxide
@@ -66,8 +64,15 @@ HackGen Console NF
     ```bash
     winget install BurntSushi.ripgrep.MSVC
     ```
+1. Neovide を起動する
+一度プラグインをインストールするため
 
-<!--
+1. markdown-preview用の設定を行う
+git bash から以下のコマンドを実行
+    ```bash
+    cd /c/Users/user/AppData/Local/nvim-data/lazy/markdown-preview.nvim/app
+    npm install
+    ```
+
 1. ショートカットをタスクバーにピン止めする
-shortcut フォルダの Neovimショートカットをタスクバーにピン止めする
--->
+shortcut フォルダの 新規メモ作成ショートカットをタスクバーにピン止めする

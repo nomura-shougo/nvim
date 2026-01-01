@@ -10,7 +10,7 @@ vim.opt.autoindent = true
 vim.opt.cursorline = false
 vim.opt.cursorcolumn = false
 vim.opt.laststatus = 2
-vim.opt.ambiwidth = 'double'
+vim.opt.ambiwidth = 'single'
 vim.opt.number = true
 -- TABキーを押した時に、2文字分の幅を持ったTABが表示されます。
 vim.opt.tabstop = 2
@@ -92,3 +92,43 @@ vim.opt.listchars = {
 vim.api.nvim_set_hl(0, "Whitespace", { fg = "#e0e0e0" })      -- スペースなど
 vim.api.nvim_set_hl(0, "NonText", { fg = "#e0e0e0" })         -- 改行など
 vim.api.nvim_set_hl(0, "SpecialKey", { fg = "#e0e0e0" })      -- タブなど
+
+-- ターミナルモードのカーソルを縦棒に設定
+vim.opt.guicursor:append("t:ver25")  -- ターミナルモードは縦棒（幅25%）
+
+-- ライトテーマ用にターミナルカラーを上書きする設定
+-- これにより、「明るい文字」を「暗い文字」に変換して表示します
+if vim.o.background == 'light' then
+    -- 黒 (文字色として使われることが多い)
+    vim.g.terminal_color_0  = '#000000'
+    vim.g.terminal_color_8  = '#555555'
+
+    -- 赤
+    vim.g.terminal_color_1  = '#cc0000'
+    vim.g.terminal_color_9  = '#ff0000'
+
+    -- 緑
+    vim.g.terminal_color_2  = '#008700'
+    vim.g.terminal_color_10 = '#00d700'
+
+    -- 黄 (白背景だと最も見にくい色) -> 茶色/オレンジ系に変更
+    vim.g.terminal_color_3  = '#af8700' 
+    vim.g.terminal_color_11 = '#d7af00'
+
+    -- 青
+    vim.g.terminal_color_4  = '#0000d7'
+    vim.g.terminal_color_12 = '#005fff'
+
+    -- マゼンタ
+    vim.g.terminal_color_5  = '#af00af'
+    vim.g.terminal_color_13 = '#d700d7'
+
+    -- シアン (これも見にくい) -> 暗い青緑に変更
+    vim.g.terminal_color_6  = '#008787'
+    vim.g.terminal_color_14 = '#00afaf'
+
+    -- 白 (背景色に近い場合がある) -> グレーに変更
+    vim.g.terminal_color_7  = '#bcbcbc'
+    vim.g.terminal_color_15 = '#eeeeee'
+end
+

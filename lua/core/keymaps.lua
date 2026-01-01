@@ -209,6 +209,9 @@ map('t', '<Esc>', '<C-\\><C-n>', { desc = "Exit terminal mode" })
 map('t', '<C-h>', '<C-\\><C-n><C-w>h', { desc = "Move to left window from terminal" })
 map('t', '<C-l>', '<C-\\><C-n><C-w>l', { desc = "Move to right window from terminal" })
 
+-- ターミナルモードでCtrl-vでクリップボードから貼り付け
+map('t', '<C-v>', '<C-\\><C-n>"+pi', { desc = "Paste from clipboard in terminal mode" })
+
 
 
 -- -- =============================

@@ -26,9 +26,11 @@ return {
     telescope.setup({
       defaults = {
         -- Neovide対応: ASCII罫線を使用（かぶりなし）
-        borderchars = { "-", "|", "-", "|", "+", "+", "+", "+" },
+        --borderchars = { "-", "|", "-", "|", "+", "+", "+", "+" },
         -- プレビューを有効化
         previewer = true,
+        -- ファイル名を先に表示
+        path_display = { "filename_first" },
         file_previewer = require('telescope.previewers').vim_buffer_cat.new,
         grep_previewer = require('telescope.previewers').vim_buffer_vimgrep.new,
         qflist_previewer = require('telescope.previewers').vim_buffer_qflist.new,
@@ -261,7 +263,11 @@ return {
 
         if not telescope_open then
           vim.schedule(function()
-            require("telescope.builtin").oldfiles()
+            require("telescope.builtin").oldfiles({
+              prompt_title = "Recent Files",
+              results_title = "Files",
+              preview_title = "Preview",
+            })
           end)
         end
       end,
@@ -288,7 +294,11 @@ return {
 
         if not telescope_open then
           vim.schedule(function()
-            require("telescope.builtin").live_grep()
+            require("telescope.builtin").live_grep({
+              prompt_title = "Live Grep",
+              results_title = "Results",
+              preview_title = "Preview",
+            })
           end)
         end
       end,
@@ -303,6 +313,8 @@ return {
         require("telescope.builtin").live_grep({
           grep_open_files = true,
           prompt_title = "Live Grep (Open Buffers)",
+          results_title = "Results",
+          preview_title = "Preview",
         })
       end,
       desc = "Grep: 開いているバッファのみ検索" 
@@ -326,7 +338,12 @@ return {
 
         if not telescope_open then
           vim.schedule(function()
-            require("telescope.builtin").find_files({ hidden = true })
+            require("telescope.builtin").find_files({
+              hidden = true,
+              prompt_title = "Find Files",
+              results_title = "Files",
+              preview_title = "Preview",
+            })
           end)
         end
       end,

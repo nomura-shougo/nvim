@@ -28,6 +28,10 @@ return {
       width = "block",
       right_pad = 2,
     },
+    -- イタリック表示（アンダースコア等）を無効化
+    italic = {
+      enabled = false,
+    },
   },
   -- ▼ ここが追加・変更点です ▼
   config = function(_, opts)

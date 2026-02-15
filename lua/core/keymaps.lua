@@ -80,6 +80,7 @@ map("n","<C-u>","U")
 map("n","U","<C-r>")
 map("n","<C-f>","/")
 map("n","<C-z>","u")
+map("i","<C-z>","<C-o>u")
 
 map("n","n","nzz")
 map("n","N","Nzz")

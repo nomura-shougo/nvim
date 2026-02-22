@@ -74,5 +74,8 @@ return {
     -- コードブロック (グレー背景)
     vim.api.nvim_set_hl(0, 'RenderMarkdownCode', { bg = '#f5f5f5' })
     vim.api.nvim_set_hl(0, 'RenderMarkdownCodeInline', { bg = '#eeeeee', fg = '#222222' })
+
+    -- 順序付きリストの数字に色を付ける
+    vim.api.nvim_set_hl(0, 'RenderMarkdownBullet', { fg = '#0066cc', bold = true }) -- 青色で強調
   end,
 }

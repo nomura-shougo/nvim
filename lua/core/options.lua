@@ -132,3 +132,13 @@ if vim.o.background == 'light' then
     vim.g.terminal_color_15 = '#eeeeee'
 end
 
+-- Markdownファイル等を開いたときに、半角スペース2つのインデントにする設定
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "markdown", "text" },
+  callback = function()
+    vim.opt_local.expandtab = true   -- Tabキー入力をスペースに変換
+    vim.opt_local.shiftwidth = 2     -- インデントの幅をスペース2つ分に
+    vim.opt_local.tabstop = 2        -- Tab文字の表示幅をスペース2つ分に
+    vim.opt_local.softtabstop = 2    -- Tabキーを押したときの移動幅をスペース2つ分に
+  end,
+})

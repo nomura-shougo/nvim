@@ -32,6 +32,12 @@ return {
     italic = {
       enabled = false,
     },
+    -- 番号付きリストで「01.」などをそのまま表示（1. に正規化しない）
+    bullet = {
+      ordered_icons = function(ctx)
+        return ctx.value
+      end,
+    },
   },
   -- ▼ ここが追加・変更点です ▼
   config = function(_, opts)

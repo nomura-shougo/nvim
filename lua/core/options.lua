@@ -142,3 +142,40 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.softtabstop = 2    -- Tabキーを押したときの移動幅をスペース2つ分に
   end,
 })
+
+-- コマンドの名前を "RenumberList" と定義します
+vim.api.nvim_create_user_command('RenumberList', function(opts)
+  -- 選択された範囲の開始行と終了行を取得 (0オリジンにするため -1 しています)
+  local start_row = opts.line1 - 1
+  local end_row = opts.line2
+
+  -- 選択範囲のテキストを配列として取得
+  local lines = vim.api.nvim_buf_get_lines(0, start_row, end_row, false)
+  
+  local counter = 1
+
+  -- 各行に対して処理を行う
+  for i, line in ipairs(lines) do
+    -- "^%s*%d+%." : 行頭(^) + 任意の空白(%s*) + 数字(%d+) + ドット(%.)
+    local new_line = string.gsub(line, "^%s*%d+%.", function(match)
+      -- matchには「  1.」のようにインデントを含んだ文字列が入ってきます
+      -- そこから元のインデント（空白部分）だけを抽出します
+      local indent = string.match(match, "^%s*")
+      
+      -- 元のインデント + 新しい連番 + ドット を結合して返します
+      local replacement = indent .. counter .. "."
+      counter = counter + 1
+      return replacement
+    end)
+    
+    -- 置換後の行を配列に保存
+    lines[i] = new_line
+  end
+
+  -- 置換されたテキストをバッファに書き戻す
+  vim.api.nvim_buf_set_lines(0, start_row, end_row, false, lines)
+
+end, { range = true }) -- range = true で範囲選択（Visualモード）からの実行を許可する
+
+-- (おまけ) Visualモードで選択中、<leader>rn でこのコマンドを実行するショートカット
+vim.keymap.set('v', '<leader>rn', ':RenumberList<CR>', { noremap = true, silent = true })
